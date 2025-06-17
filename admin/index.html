@@ -33,7 +33,7 @@
 <script>
 async function fetchOrders() {
   try {
-    const res = await fetch("http://localhost:5000/api/orders");
+    const res = await fetch("https://beanhaven.onrender.com/api/orders");
     const data = await res.json();
     if (!data.success || !data.orders) throw new Error("Failed to fetch");
 

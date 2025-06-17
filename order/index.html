@@ -245,7 +245,7 @@
       const payload = { email, password };
       if (mode === "signup") payload.name = name;
 
-      const res = await fetch(`http://localhost:5000/api/${mode}`, {
+      const res = await fetch(`https://beanhaven.onrender.com/api/${mode}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -277,7 +277,7 @@
 
   async function sendOrderToBackend(data) {
     try {
-      await fetch("http://localhost:5000/api/order", {
+      await fetch("https://beanhaven.onrender.com/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
