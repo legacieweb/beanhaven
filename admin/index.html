@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - Bean Haven</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+<!-- Header -->
+<header class="bg-yellow-700 text-white py-4 shadow">
+  <div class="container mx-auto px-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">Bean Haven Admin</h1>
+    <a href="https://beanhaven.iyonicorp.com" class="text-yellow-100 hover:text-white text-sm">← Back to Menu</a>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="container mx-auto px-4 py-10">
+  <h2 class="text-2xl font-bold text-center mb-8">📋 Orders Overview</h2>
+
+  <div id="ordersContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Orders will be inserted here -->
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="text-center text-gray-500 text-sm py-6 mt-10 border-t">
+  &copy; 2025 Bean Haven Admin. Secure & smooth ☕.
+</footer>
+
+<script>
+async function fetchOrders() {
+  try {
+    const res = await fetch("http://localhost:5000/api/orders");
+    const data = await res.json();
+    if (!data.success || !data.orders) throw new Error("Failed to fetch");
+
+    const container = document.getElementById("ordersContainer");
+    container.innerHTML = "";
+
+    data.orders.forEach(order => {
+      const price = parseFloat(order.price) || 0;
+      const quantity = parseInt(order.quantity) || 0;
+      const total = (price * quantity).toFixed(2);
+
+      const card = document.createElement("div");
+      card.className = "bg-white shadow-md rounded-lg p-5 space-y-2 border border-yellow-100";
+
+      card.innerHTML = `
+        <h3 class="text-lg font-semibold text-yellow-800">${order.name || "Unknown"}</h3>
+        <p><strong>Email:</strong> ${order.email || "N/A"}</p>
+        <p><strong>Phone:</strong> ${order.phone || "N/A"}</p>
+        <p><strong>Address:</strong> ${order.address || "N/A"}</p>
+        <p><strong>Coffee:</strong> ${order.coffee || "N/A"}</p>
+        <p><strong>Qty:</strong> ${quantity} × $${price.toFixed(2)}</p>
+        <p><strong>Total:</strong> <span class="font-bold text-green-700">$${total}</span></p>
+        <p><strong>Instructions:</strong> ${order.instructions || "None"}</p>
+        <p class="text-xs text-gray-500">🕒 ${new Date(order.date).toLocaleString()}</p>
+      `;
+      container.appendChild(card);
+    });
+
+  } catch (err) {
+    console.error("Error loading orders:", err);
+    document.getElementById("ordersContainer").innerHTML = `
+      <div class="col-span-full text-center text-red-600">
+        ⚠️ Failed to load orders. Please check your server or data format.
+      </div>
+    `;
+  }
+}
+
+window.onload = fetchOrders;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Coffee - Bean Haven</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="bg-yellow-50 text-gray-800 font-sans">
+
+<header class="bg-white shadow-md">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-yellow-800">Bean Haven</h1>
+    <a href="https://beanhaven.iyonicorp.com" class="text-yellow-700 hover:text-yellow-900">← Back to Menu</a>
+  </div>
+</header>
+
+<main class="container mx-auto px-4 py-10">
+  <h2 class="text-3xl font-bold text-center mb-8">Your Coffee Order</h2>
+
+
+  <div class="max-w-xl mx-auto bg-white rounded shadow-md overflow-hidden">
+    <!-- Image Section -->
+    <img id="coffeeImage" class="w-full h-64 object-cover" alt="Coffee Image"/>
+
+    <!-- Form -->
+<!-- Inside the form -->
+<form id="orderForm" class="p-6 space-y-6">
+  <!-- Coffee Name -->
+  <div>
+    <label class="block text-sm font-medium mb-2">Coffee</label>
+    <input id="coffeeName" name="coffee" readonly class="w-full px-4 py-2 border rounded bg-gray-100" />
+  </div>
+
+  <!-- Price -->
+  <div>
+    <label class="block text-sm font-medium mb-2">Price (each)</label>
+    <input id="coffeePrice" name="price" readonly class="w-full px-4 py-2 border rounded bg-gray-100" />
+  </div>
+
+  <!-- Quantity -->
+  <div>
+    <label for="quantity" class="block text-sm font-medium mb-2">Quantity</label>
+    <input type="number" id="quantity" name="quantity" min="1" value="1" required class="w-full px-4 py-2 border rounded" />
+  </div>
+
+  <!-- Total -->
+  <div>
+    <label class="block text-sm font-medium mb-2">Total Price</label>
+    <input id="totalPrice" readonly class="w-full px-4 py-2 border rounded bg-yellow-100 font-bold text-yellow-800" />
+  </div>
+
+  <!-- Special Instructions -->
+  <div>
+    <label for="instructions" class="block text-sm font-medium mb-2">Special Instructions</label>
+    <textarea id="instructions" name="instructions" rows="3" placeholder="e.g., no sugar, extra hot..." class="w-full px-4 py-2 border rounded"></textarea>
+  </div>
+
+  <!-- Name -->
+  <div>
+    <label for="name" class="block text-sm font-medium mb-2">Your Name</label>
+    <input type="text" id="name" name="name" required class="w-full px-4 py-2 border rounded" />
+  </div>
+
+  <!-- Email -->
+  <div>
+    <label for="email" class="block text-sm font-medium mb-2">Email</label>
+    <input type="email" id="email" name="email" required class="w-full px-4 py-2 border rounded" />
+  </div>
+
+  <!-- Phone -->
+  <div>
+    <label for="phone" class="block text-sm font-medium mb-2">Phone Number</label>
+    <input type="tel" id="phone" name="phone" required placeholder="+123 456 7890" class="w-full px-4 py-2 border rounded" />
+  </div>
+
+  <!-- Address -->
+  <div>
+    <label for="address" class="block text-sm font-medium mb-2">Delivery Address</label>
+    <textarea id="address" name="address" rows="2" required placeholder="123 Coffee St, Roastville" class="w-full px-4 py-2 border rounded"></textarea>
+  </div>
+
+  <!-- Submit -->
+  <div class="text-center">
+<button id="submitOrderBtn" type="submit" class="bg-yellow-600 text-white px-6 py-2 rounded hover:bg-yellow-700">
+  Submit Order
+</button>
+  </div>
+</form>
+  </div>
+</main>
+
+<footer class="text-center text-gray-500 text-sm py-6 mt-10 border-t">
+  © 2025 Bean Haven. Coffee with care ☕.
+</footer>
+<style>
+    body {
+        background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+    }
+    body.bg-yellow-50 {
+        background-color: rgba(254, 252, 232, 0.85);
+        background-blend-mode: lighten;
+    }
+</style>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const coffee = params.get("coffee");
+    const price = params.get("price");
+    const img = params.get("img");
+
+    if (coffee) document.getElementById("coffeeName").value = coffee;
+    if (price) {
+      const formattedPrice = parseFloat(price).toFixed(2);
+      document.getElementById("coffeePrice").value = formattedPrice;
+      document.getElementById("totalPrice").value = `$${formattedPrice}`;
+    }
+    if (img) document.getElementById("coffeeImage").src = decodeURIComponent(img);
+
+    const user = JSON.parse(localStorage.getItem("beanhaven_user"));
+    if (user) {
+      document.getElementById("name").value = user.name;
+      document.getElementById("email").value = user.email;
+      document.getElementById("phone").value = user.phone || "";
+      document.getElementById("address").value = user.address || "";
+    }
+
+    updateTotal();
+  });
+
+  document.getElementById("quantity").addEventListener("input", updateTotal);
+
+  function updateTotal() {
+    const unitPrice = parseFloat(document.getElementById("coffeePrice").value);
+    const quantity = parseInt(document.getElementById("quantity").value);
+    if (!isNaN(unitPrice) && !isNaN(quantity)) {
+      const total = unitPrice * quantity;
+      document.getElementById("totalPrice").value = `$${total.toFixed(2)}`;
+    }
+  }
+
+  let finalOrderData = null;
+
+  document.getElementById("orderForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const submitBtn = document.getElementById("submitOrderBtn");
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+      <svg class="inline w-4 h-4 mr-2 text-white animate-spin" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+      </svg> Processing...`;
+
+    finalOrderData = {
+      coffee: document.getElementById("coffeeName").value,
+      price: parseFloat(document.getElementById("coffeePrice").value),
+      quantity: parseInt(document.getElementById("quantity").value),
+      instructions: document.getElementById("instructions").value,
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      phone: document.getElementById("phone").value,
+      address: document.getElementById("address").value,
+    };
+
+    const user = JSON.parse(localStorage.getItem("beanhaven_user"));
+    if (user && user.email === finalOrderData.email) {
+      showContinueAs(user.name);
+    } else {
+      showAuthPopup();
+    }
+  });
+
+  function showContinueAs(name) {
+    const modal = document.createElement("div");
+    modal.className = "fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center animate-fadeIn";
+    modal.innerHTML = `
+      <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm text-center space-y-4">
+        <h3 class="text-xl font-semibold text-gray-800">Welcome back, ${name}!</h3>
+        <p class="text-sm text-gray-600">Would you like to continue your order as <strong>${name}</strong>?</p>
+        <button class="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600" id="continueBtn">Yes, Continue</button>
+        <button class="w-full bg-gray-200 text-gray-700 py-2 rounded hover:bg-gray-300" id="cancelBtn">Use different account</button>
+      </div>`;
+    document.body.appendChild(modal);
+
+    document.getElementById("continueBtn").onclick = () => {
+      closePopup();
+      sendOrderToBackend(finalOrderData);
+    };
+    document.getElementById("cancelBtn").onclick = () => {
+      closePopup();
+      showAuthPopup();
+    };
+  }
+
+  function showAuthPopup() {
+    const modal = document.createElement("div");
+    modal.id = "authChoice";
+    modal.className = "fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center animate-fadeIn";
+    modal.innerHTML = `
+      <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm text-center space-y-4 relative">
+        <button id="closeAuthChoice" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-xl font-bold">&times;</button>
+        <h3 class="text-xl font-semibold text-gray-800">Continue Order</h3>
+        <button id="guestBtn" class="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600">Buy as Guest</button>
+        <button id="signupBtn" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Sign Up</button>
+        <button id="loginBtn" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Log In</button>
+      </div>`;
+    document.body.appendChild(modal);
+
+    document.getElementById("closeAuthChoice").onclick = closePopup;
+    document.getElementById("guestBtn").onclick = () => {
+      closePopup();
+      sendOrderToBackend(finalOrderData);
+    };
+    document.getElementById("signupBtn").onclick = () => openAuthForm("signup");
+    document.getElementById("loginBtn").onclick = () => openAuthForm("login");
+  }
+
+  function openAuthForm(mode) {
+    closePopup();
+    const modal = document.createElement("div");
+    modal.id = "authForm";
+    modal.className = "fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center animate-fadeIn";
+    modal.innerHTML = `
+      <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md space-y-4 text-center relative">
+        <button id="closeAuthForm" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-xl font-bold">&times;</button>
+        <h3 class="text-xl font-semibold text-gray-800">${mode === "signup" ? "Sign Up" : "Log In"}</h3>
+        ${mode === "signup" ? '<input id="authName" class="w-full px-3 py-2 border rounded" placeholder="Your Name">' : ''}
+        <input id="authEmail" class="w-full px-3 py-2 border rounded" placeholder="Email" value="${finalOrderData.email}">
+        <input id="authPassword" type="password" class="w-full px-3 py-2 border rounded" placeholder="Password">
+        <button id="submitAuth" class="bg-yellow-600 text-white py-2 px-4 rounded hover:bg-yellow-700">${mode === "signup" ? "Create Account" : "Log In"}</button>
+      </div>`;
+    document.body.appendChild(modal);
+
+    document.getElementById("closeAuthForm").onclick = closePopup;
+    document.getElementById("submitAuth").onclick = async () => {
+      const name = document.getElementById("authName")?.value || finalOrderData.name;
+      const email = document.getElementById("authEmail").value;
+      const password = document.getElementById("authPassword").value;
+
+      const payload = { email, password };
+      if (mode === "signup") payload.name = name;
+
+      const res = await fetch(`http://localhost:5000/api/${mode}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(r => r.json());
+
+      if (res.success) {
+        localStorage.setItem("beanhaven_user", JSON.stringify({
+          name,
+          email,
+          phone: finalOrderData.phone,
+          address: finalOrderData.address
+        }));
+        closePopup();
+        sendOrderToBackend(finalOrderData);
+      } else {
+        alert(res.message || "Authentication failed.");
+      }
+    };
+  }
+
+  function closePopup() {
+    ["authChoice", "authForm"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    });
+    const overlay = document.querySelector(".fixed.inset-0.bg-black");
+    if (overlay) overlay.remove();
+  }
+
+  async function sendOrderToBackend(data) {
+    try {
+      await fetch("http://localhost:5000/api/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+    } catch (err) {
+      console.warn("Order not saved to backend:", err.message);
+    }
+    createReceiptPDF(data);
+  }
+
+  async function createReceiptPDF(orderData) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const bgUrl = "https://images.unsplash.com/photo-1594075731547-8c705bb69e50?q=80&w=687&auto=format&fit=crop";
+    const res = await fetch(bgUrl);
+    const blob = await res.blob();
+    const base64 = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+
+    doc.addImage(base64, 'JPEG', 0, 0, 210, 297);
+    const { coffee, quantity, price, name, email, phone, address, instructions } = orderData;
+    const total = (price * quantity).toFixed(2);
+    let y = 20;
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(20);
+    doc.setTextColor(255, 255, 255);
+    doc.text("Bean Haven", 105, y, { align: "center" });
+
+    y += 10;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.text("Order Receipt", 105, y, { align: "center" });
+
+    y += 15;
+    doc.setDrawColor(220, 180, 90);
+    doc.line(30, y, 180, y);
+
+    y += 10;
+    doc.setFontSize(11);
+    doc.text(`Customer:`, 30, y); doc.text(name, 70, y);
+    y += 8;
+    doc.text(`Email:`, 30, y); doc.text(email, 70, y);
+    y += 8;
+    doc.text(`Phone:`, 30, y); doc.text(phone, 70, y);
+    y += 8;
+    doc.text(`Address:`, 30, y); doc.text(address, 70, y, { maxWidth: 110 });
+    y += 8;
+    doc.text(`Coffee:`, 30, y); doc.text(coffee, 70, y);
+    y += 8;
+    doc.text(`Quantity:`, 30, y); doc.text(`${quantity}`, 70, y);
+    y += 8;
+    doc.text(`Unit Price:`, 30, y); doc.text(`$${price.toFixed(2)}`, 70, y);
+    y += 8;
+    doc.setFont("helvetica", "bold");
+    doc.text(`Total:`, 30, y); doc.text(`$${total}`, 70, y);
+
+    y += 10;
+    doc.setFont("helvetica", "normal");
+    doc.text(`Special Instructions:`, 30, y);
+    doc.text(instructions || "None", 70, y, { maxWidth: 110 });
+
+    doc.setFontSize(10);
+    doc.text("Thank you for ordering at Bean Haven!", 105, 275, { align: "center" });
+    doc.setFontSize(8);
+    doc.text("Coffee with care ☕.", 105, 282, { align: "center" });
+
+    doc.save("BeanHaven_Receipt.pdf");
+
+    const submitBtn = document.getElementById("submitOrderBtn");
+    submitBtn.innerText = "✅ Order Placed!";
+    submitBtn.classList.remove("bg-yellow-600");
+    submitBtn.classList.add("bg-green-600", "hover:bg-green-700");
+    submitBtn.disabled = true;
+
+    alert("✅ Your order has been placed and the receipt has been downloaded!");
+  }
+</script>
+
+
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .animate-fadeIn {
+    animation: fadeIn 0.25s ease-out;
+  }
+</style>
+
+
+</body>
+</html>

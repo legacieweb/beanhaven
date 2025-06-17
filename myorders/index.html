@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Orders - Bean Haven</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-yellow-50 text-gray-800 font-sans">
+
+<!-- Header -->
+<header class="bg-yellow-700 text-white py-4 shadow">
+  <div class="container mx-auto px-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">My Orders ☕</h1>
+    <a href="https://beanhaven.iyonicorp.com" class="text-yellow-100 hover:text-white text-sm">← Back to Menu</a>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="container mx-auto px-4 py-10">
+  <h2 class="text-2xl font-bold text-center mb-8">📦 Order History</h2>
+  <div id="ordersList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
+    <p class="text-center col-span-full text-gray-500">Loading your orders...</p>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="text-center text-gray-500 text-sm py-6 mt-10 border-t">
+  &copy; 2025 Bean Haven. Brewed for you ☕.
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const user = JSON.parse(localStorage.getItem("beanhaven_user"));
+  const ordersList = document.getElementById("ordersList");
+
+  if (!user || !user.email) {
+    ordersList.innerHTML = '<p class="col-span-full text-center text-red-500">⚠️ Please log in to view your orders.</p>';
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:5000/api/orders");
+    const data = await res.json();
+
+    if (!data.success || !Array.isArray(data.orders)) {
+      throw new Error("Failed to fetch orders");
+    }
+
+    const userOrders = data.orders.filter(order => order.email === user.email);
+    if (userOrders.length === 0) {
+      ordersList.innerHTML = '<p class="col-span-full text-center text-gray-500">You have no orders yet.</p>';
+      return;
+    }
+
+    ordersList.innerHTML = "";
+    userOrders.forEach(order => {
+      const total = (order.price * order.quantity).toFixed(2);
+      const card = document.createElement("div");
+      card.className = "bg-white shadow-md rounded-lg p-5 space-y-2 border border-yellow-100";
+
+      card.innerHTML = `
+        <h3 class="text-lg font-semibold text-yellow-800">${order.coffee}</h3>
+        <p><strong>Qty:</strong> ${order.quantity}</p>
+        <p><strong>Total:</strong> <span class="text-green-700 font-bold">$${total}</span></p>
+        <p><strong>Address:</strong> ${order.address || "N/A"}</p>
+        <p><strong>Instructions:</strong> ${order.instructions || "None"}</p>
+        <p class="text-xs text-gray-500">🕒 ${new Date(order.date).toLocaleString()}</p>
+      `;
+      ordersList.appendChild(card);
+    });
+
+  } catch (err) {
+    console.error(err);
+    ordersList.innerHTML = '<p class="col-span-full text-center text-red-500">⚠️ Unable to load your orders. Try again later.</p>';
+  }
+});
+</script>
+
+</body>
+</html>

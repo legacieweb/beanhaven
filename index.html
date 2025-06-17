@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bean Haven Coffee</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  
+</head>
+<body class="bg-yellow-50 text-gray-800 font-sans">
+<!-- Navbar -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm transition-all duration-300">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <div class="flex items-center space-x-3">
+      <svg class="w-10 h-10 text-yellow-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <ellipse cx="12" cy="12" rx="9" ry="7" stroke="currentColor" stroke-width="2" fill="#fbbf24"/>
+        <path d="M8 15c0-2 8-2 8 0" stroke="#fff" stroke-width="1.5" fill="none"/>
+        <path d="M12 7v2" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <h1 class="text-2xl font-bold text-yellow-600">Bean Haven</h1>
+    </div>
+
+    <!-- Hamburger Button (Mobile) -->
+    <button id="nav-toggle" class="md:hidden text-yellow-600 focus:outline-none" aria-label="Toggle navigation">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <!-- Nav Links (Desktop) -->
+    <ul id="nav-menu" class="hidden md:flex space-x-6 font-medium text-yellow-600">
+      <li><a href="./myorders" class="hover:text-yellow-700">My Orders</a></li>
+      <li><a href="#menu" class="hover:text-yellow-700">Menu</a></li>
+      <li><a href="#about" class="hover:text-yellow-700">About</a></li>
+      <li><a href="#contact" class="hover:text-yellow-700">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+    <ul class="flex flex-col space-y-2 text-yellow-600 font-medium">
+      <li><a href="./myorders" class="block py-2 px-2 rounded hover:bg-yellow-100 hover:text-yellow-700">My Orders</a></li>
+      <li><a href="#menu" class="block py-2 px-2 rounded hover:bg-yellow-100 hover:text-yellow-700">Menu</a></li>
+      <li><a href="#about" class="block py-2 px-2 rounded hover:bg-yellow-100 hover:text-yellow-700">About</a></li>
+      <li><a href="#contact" class="block py-2 px-2 rounded hover:bg-yellow-100 hover:text-yellow-700">Contact</a></li>
+    </ul>
+  </div>
+
+  <script>
+    const navToggle = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    navToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</nav>
+
+  <!-- Hero Section -->
+  <section class="bg-cover bg-center h-96" style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93');">
+    <div class="bg-black bg-opacity-50 h-full flex items-center justify-center">
+      <div class="text-center text-white">
+        <h2 class="text-4xl font-bold mb-4">Your Daily Brew</h2>
+        <p class="text-lg mb-6">Freshly roasted. Lovingly brewed.</p>
+        <a href="#menu" class="bg-yellow-600 text-white px-6 py-2 rounded hover:bg-yellow-700">Explore Our Menu</a>
+      </div>
+    </div>
+  </section>
+
+<!-- Featured Drinks -->
+<section class="py-12">
+  <div class="container mx-auto px-4">
+    <h3 class="text-3xl font-bold text-center mb-8">Featured Drinks</h3>
+
+    <!-- Mobile Carousel -->
+    <div class="relative md:hidden">
+      <div id="carouselInner" class="flex transition-transform duration-500 ease-in-out overflow-x-auto snap-x snap-mandatory scroll-smooth">
+        <div class="min-w-full snap-start shrink-0 bg-white rounded shadow-md overflow-hidden flex flex-col">
+          <img src="https://media.bluediamond.com/uploads/2023/02/22172029/7_Blonde_Vanilla_Latte_FY23_New_Recipes_P_22-blu-0153-2025x1350.jpg" class="h-64 w-full object-cover" alt="Latte">
+          <div class="p-6 flex-1 flex flex-col justify-center">
+            <h4 class="text-xl font-semibold mb-2">Vanilla Latte</h4>
+            <p class="text-sm">Smooth espresso with a hint of vanilla and creamy milk.</p>
+          </div>
+        </div>
+        <div class="min-w-full snap-start shrink-0 bg-white rounded shadow-md overflow-hidden flex flex-col">
+          <img src="http://www.magtheweekly.com/assets/uploads/updates/2022-09-27/16494_458262_updates.jpg" class="h-64 w-full object-cover" alt="Cappuccino">
+          <div class="p-6 flex-1 flex flex-col justify-center">
+            <h4 class="text-xl font-semibold mb-2">Classic Cappuccino</h4>
+            <p class="text-sm">Perfect balance of espresso, steamed milk, and foam.</p>
+          </div>
+        </div>
+        <div class="min-w-full snap-start shrink-0 bg-white rounded shadow-md overflow-hidden flex flex-col">
+          <img src="https://lorcoffee.com/cdn/shop/files/Lor_L_Coffee_LeTigre_Provocateur_Iced_FathersDay_90116-_2_8e7234a2-61a8-4a99-aa25-595623fedd1e.jpg?format=webp&v=1718208393&width=750" class="h-64 w-full object-cover" alt="Iced Coffee">
+          <div class="p-6 flex-1 flex flex-col justify-center">
+            <h4 class="text-xl font-semibold mb-2">Iced Cold Brew</h4>
+            <p class="text-sm">Refreshing and bold cold brew served over ice.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="absolute top-1/2 left-0 transform -translate-y-1/2">
+        <button id="prevBtn" class="ml-2 bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-full shadow-lg animate-shake">
+          <
+        </button>
+      </div>
+      <div class="absolute top-1/2 right-0 transform -translate-y-1/2">
+        <button id="nextBtn" class="mr-2 bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-full shadow-lg animate-shake">
+          >
+        </button>
+      </div>
+    </div>
+
+    <!-- Desktop Grid -->
+    <div class="hidden md:grid md:grid-cols-3 gap-8">
+      <div class="bg-white p-0 rounded shadow-md overflow-hidden flex flex-col">
+        <img src="https://media.bluediamond.com/uploads/2023/02/22172029/7_Blonde_Vanilla_Latte_FY23_New_Recipes_P_22-blu-0153-2025x1350.jpg" class="h-64 w-full object-cover" alt="Latte">
+        <div class="p-6 flex-1 flex flex-col justify-center">
+          <h4 class="text-xl font-semibold mb-2">Vanilla Latte</h4>
+          <p class="text-sm">Smooth espresso with a hint of vanilla and creamy milk.</p>
+        </div>
+      </div>
+      <div class="bg-white p-0 rounded shadow-md overflow-hidden flex flex-col">
+        <img src="http://www.magtheweekly.com/assets/uploads/updates/2022-09-27/16494_458262_updates.jpg" class="h-64 w-full object-cover" alt="Cappuccino">
+        <div class="p-6 flex-1 flex flex-col justify-center">
+          <h4 class="text-xl font-semibold mb-2">Classic Cappuccino</h4>
+          <p class="text-sm">Perfect balance of espresso, steamed milk, and foam.</p>
+        </div>
+      </div>
+      <div class="bg-white p-0 rounded shadow-md overflow-hidden flex flex-col">
+        <img src="https://lorcoffee.com/cdn/shop/files/Lor_L_Coffee_LeTigre_Provocateur_Iced_FathersDay_90116-_2_8e7234a2-61a8-4a99-aa25-595623fedd1e.jpg?format=webp&v=1718208393&width=750" class="h-64 w-full object-cover" alt="Iced Coffee">
+        <div class="p-6 flex-1 flex flex-col justify-center">
+          <h4 class="text-xl font-semibold mb-2">Iced Cold Brew</h4>
+          <p class="text-sm">Refreshing and bold cold brew served over ice.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  const carousel = document.getElementById('carouselInner');
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+
+  nextBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: carousel.offsetWidth, behavior: 'smooth' });
+  });
+  prevBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: -carousel.offsetWidth, behavior: 'smooth' });
+  });
+</script>
+
+
+<style>
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(3px); }
+  50% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+.animate-shake {
+  animation: shake 1.5s infinite ease-in-out;
+}
+</style>
+
+<!-- About Section -->
+<section class="py-16 bg-gradient-to-br from-yellow-50 via-white to-yellow-100 relative" id="about">
+
+  <!-- Background image for small screens -->
+  <div class="absolute inset-0 sm:hidden">
+    <div class="w-full h-full bg-cover bg-center opacity-20"
+         style="background-image: url('https://unocasa.com/cdn/shop/articles/types_of_coffee_91a828a5-7ff3-427d-acaa-c8b7289c9e5a_600x.jpg?v=1621261041');"></div>
+  </div>
+
+  <div class="container relative z-10 mx-auto px-4 flex flex-col md:flex-row items-center gap-10">
+    
+    <!-- Image (only visible on md and above) -->
+    <div class="md:w-1/2 mb-10 md:mb-0 hidden md:flex justify-center">
+      <div class="relative w-full max-w-md">
+        <img src="https://unocasa.com/cdn/shop/articles/types_of_coffee_91a828a5-7ff3-427d-acaa-c8b7289c9e5a_600x.jpg?v=1621261041"
+             alt="Coffee Shop Interior"
+             class="rounded-3xl shadow-2xl w-full h-80 object-cover border-4 border-yellow-200" />
+        <!-- Animated steam -->
+        <svg class="absolute left-1/2 -translate-x-1/2 -top-6 w-24 h-24 pointer-events-none" viewBox="0 0 96 96" fill="none">
+          <path d="M48 80c0-16 16-16 16-32S48 32 48 16" stroke="#fbbf24" stroke-width="4" stroke-linecap="round">
+            <animate attributeName="d" values="
+              M48 80c0-16 16-16 16-32S48 32 48 16;
+              M48 80c0-18 18-14 18-34S48 34 48 16;
+              M48 80c0-16 16-16 16-32S48 32 48 16
+            " dur="3s" repeatCount="indefinite"/>
+          </path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- About Content -->
+    <div class="md:w-1/2 md:pl-8 text-yellow-600 md:text-gray-800">
+      <h3 class="text-4xl font-extrabold mb-4 drop-shadow">
+        About <span class="text-yellow-600 md:text-yellow-700">Bean Haven</span>
+      </h3>
+      <p class="mb-6 text-lg leading-relaxed">
+        <span class="inline-block bg-yellow-100 px-2 py-1 rounded-lg font-semibold">Bean Haven Coffee</span>
+        is your neighborhood destination for expertly crafted coffee and warm, welcoming vibes.<br>
+        Our beans are <span class="font-bold">ethically sourced</span> and roasted in-house, ensuring every cup is fresh and full of flavor.<br>
+        Whether you’re here to work, catch up with friends, or just enjoy a quiet moment, we’re here to make your day better—one cup at a time.
+      </p>
+
+      <ul class="grid grid-cols-2 gap-4 text-base font-medium">
+        <li class="flex items-center space-x-2">
+          <svg class="w-6 h-6 text-yellow-600 md:text-yellow-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span>Locally roasted beans</span>
+        </li>
+        <li class="flex items-center space-x-2">
+          <svg class="w-6 h-6 text-yellow-600 md:text-yellow-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span>Friendly baristas</span>
+        </li>
+        <li class="flex items-center space-x-2">
+          <svg class="w-6 h-6 text-yellow-600 md:text-yellow-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span>Cozy atmosphere</span>
+        </li>
+        <li class="flex items-center space-x-2">
+          <svg class="w-6 h-6 text-yellow-600 md:text-yellow-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span>Free Wi-Fi</span>
+        </li>
+      </ul>
+
+      <div class="mt-8 flex space-x-4">
+        <a href="#contact" class="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-lg font-bold shadow transition">Contact us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="py-12 bg-yellow-50" id="menu">
+  <div class="container mx-auto px-4">
+    <h3 class="text-3xl font-bold text-center mb-10">Our Menu</h3>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+
+      <!-- PRODUCT CARD: Caramel Macchiato -->
+      <div class="bg-white rounded shadow-md overflow-hidden flex flex-col" x-data="{ showIngredients: false }">
+        <img src="https://dinnerthendessert.com/wp-content/uploads/2023/10/Caramel-Macchiato-10.jpg" class="h-64 w-full object-cover" alt="Caramel Macchiato">
+        <div class="p-6 flex-1 flex flex-col justify-center">
+          <h4 class="text-xl font-semibold mb-2">Caramel Macchiato</h4>
+          <p class="text-sm text-gray-700 mb-2">Price: <span class="font-bold">$4.50</span></p>
+          <button @click="showIngredients = !showIngredients" class="text-sm text-yellow-700 underline focus:outline-none mb-2">
+            View Ingredients
+          </button>
+          <ul x-show="showIngredients" class="text-sm text-gray-600 list-disc list-inside mb-4">
+            <li>Espresso</li>
+            <li>Steamed Milk</li>
+            <li>Vanilla Syrup</li>
+            <li>Caramel Drizzle</li>
+          </ul>
+          <a href="./order?coffee=Caramel%20Macchiato&price=4.50&img=https%3A%2F%2Fdinnerthendessert.com%2Fwp-content%2Fuploads%2F2023%2F10%2FCaramel-Macchiato-10.jpg" class="inline-block bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 text-sm">Order Now</a>
+        </div>
+      </div>
+
+      <!-- PRODUCT CARD: Iced Mocha -->
+      <div class="bg-white rounded shadow-md overflow-hidden flex flex-col" x-data="{ showIngredients: false }">
+        <img src="https://www.heinens.com/content/uploads/2022/05/Mocha-Iced-Coffee-with-Vanilla-Cold-Foam-800x550-1.jpg" class="h-64 w-full object-cover" alt="Iced Mocha">
+        <div class="p-6 flex-1 flex flex-col justify-center">
+          <h4 class="text-xl font-semibold mb-2">Iced Mocha</h4>
+          <p class="text-sm text-gray-700 mb-2">Price: <span class="font-bold">$4.75</span></p>
+          <button @click="showIngredients = !showIngredients" class="text-sm text-yellow-700 underline focus:outline-none mb-2">View Ingredients</button>
+          <ul x-show="showIngredients" class="text-sm text-gray-600 list-disc list-inside mb-4">
+            <li>Espresso</li>
+            <li>Chocolate Syrup</li>
+            <li>Milk</li>
+            <li>Ice</li>
+            <li>Whipped Cream</li>
+          </ul>
+          <a href="./order?coffee=Iced%20Mocha&price=4.75&img=https%3A%2F%2Fwww.heinens.com%2Fcontent%2Fuploads%2F2022%2F05%2FMocha-Iced-Coffee-with-Vanilla-Cold-Foam-800x550-1.jpg" class="inline-block bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 text-sm">Order Now</a>
+        </div>
+      </div>
+
+      <!-- PRODUCT CARD: Flat White -->
+      <div class="bg-white rounded shadow-md overflow-hidden flex flex-col" x-data="{ showIngredients: false }">
+        <img src="https://www.foodandwine.com/thmb/BzAPlKJh_Rg8bMsyBzTtFLqEqn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Partners-Flat-White-FT-BLOG0523-b11f6273c2d84462954c2163d6a1076d.jpg" class="h-64 w-full object-cover" alt="Flat White">
+        <div class="p-6 flex-1 flex flex-col justify-center">
+          <h4 class="text-xl font-semibold mb-2">Flat White</h4>
+          <p class="text-sm text-gray-700 mb-2">Price: <span class="font-bold">$4.25</span></p>
+          <button @click="showIngredients = !showIngredients" class="text-sm text-yellow-700 underline focus:outline-none mb-2">View Ingredients</button>
+          <ul x-show="showIngredients" class="text-sm text-gray-600 list-disc list-inside mb-4">
+            <li>Espresso</li>
+            <li>Steamed Milk</li>
+          </ul>
+          <a href="./order?coffee=Flat%20White&price=4.25&img=https%3A%2F%2Fwww.foodandwine.com%2Fthmb%2FBzAPlKJh_Rg8bMsyBzTtFLqEqn8%3D%2F750x0%2Ffilters%3Ano_upscale()%3Amax_bytes(150000)%3Astrip_icc()%3Aformat(webp)%2FPartners-Flat-White-FT-BLOG0523-b11f6273c2d84462954c2163d6a1076d.jpg" class="inline-block bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 text-sm">Order Now</a>
+        </div>
+      </div>
+
+      <!-- PRODUCT CARD: Pumpkin Spice Latte -->
+      <div class="bg-white rounded shadow-md overflow-hidden flex flex-col" x-data="{ showIngredients: false }">
+        <img src="https://www.ambitiouskitchen.com/wp-content/uploads/2021/09/Pumpkin-Spice-Latte-4-594x594.jpg" class="h-64 w-full object-cover" alt="Pumpkin Spice Latte">
+        <div class="p-6 flex-1 flex flex-col justify-center">
+          <h4 class="text-xl font-semibold mb-2">Pumpkin Spice Latte</h4>
+          <p class="text-sm text-gray-700 mb-2">Price: <span class="font-bold">$5.00</span></p>
+          <button @click="showIngredients = !showIngredients" class="text-sm text-yellow-700 underline focus:outline-none mb-2">View Ingredients</button>
+          <ul x-show="showIngredients" class="text-sm text-gray-600 list-disc list-inside mb-4">
+            <li>Espresso</li>
+            <li>Steamed Milk</li>
+            <li>Pumpkin Spice Syrup</li>
+            <li>Whipped Cream</li>
+            <li>Pumpkin Spice Topping</li>
+          </ul>
+          <a href="./order?coffee=Pumpkin%20Spice%20Latte&price=5.00&img=https%3A%2F%2Fwww.ambitiouskitchen.com%2Fwp-content%2Fuploads%2F2021%2F09%2FPumpkin-Spice-Latte-4-594x594.jpg" class="inline-block bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 text-sm">Order Now</a>
+        </div>
+      </div>
+
+      <!-- PRODUCT CARD: Cold Brew -->
+      <div class="bg-white rounded shadow-md overflow-hidden flex flex-col" x-data="{ showIngredients: false }">
+        <img src="https://lorcoffee.com/cdn/shop/files/Lor_L_Coffee_LeTigre_Provocateur_Iced_FathersDay_90116-_2_8e7234a2-61a8-4a99-aa25-595623fedd1e.jpg?format=webp&v=1718208393&width=750" class="h-64 w-full object-cover" alt="Cold Brew">
+        <div class="p-6 flex-1 flex flex-col justify-center">
+          <h4 class="text-xl font-semibold mb-2">Cold Brew</h4>
+          <p class="text-sm text-gray-700 mb-2">Price: <span class="font-bold">$3.75</span></p>
+          <button @click="showIngredients = !showIngredients" class="text-sm text-yellow-700 underline focus:outline-none mb-2">View Ingredients</button>
+          <ul x-show="showIngredients" class="text-sm text-gray-600 list-disc list-inside mb-4">
+            <li>Cold Brew Coffee</li>
+            <li>Ice</li>
+          </ul>
+          <a href="./order?coffee=Cold%20Brew&price=3.75&img=https%3A%2F%2Florcoffee.com%2Fcdn%2Fshop%2Ffiles%2FLor_L_Coffee_LeTigre_Provocateur_Iced_FathersDay_90116-_2_8e7234a2-61a8-4a99-aa25-595623fedd1e.jpg%3Fformat%3Dwebp%26v%3D1718208393%26width%3D750" class="inline-block bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 text-sm">Order Now</a>
+        </div>
+      </div>
+
+      <!-- PRODUCT CARD: Matcha Latte -->
+      <div class="bg-white rounded shadow-md overflow-hidden flex flex-col" x-data="{ showIngredients: false }">
+        <img src="https://www.justonecookbook.com/wp-content/uploads/2022/12/Matcha-Latte-4589-II.jpg" class="h-64 w-full object-cover" alt="Matcha Latte">
+        <div class="p-6 flex-1 flex flex-col justify-center">
+          <h4 class="text-xl font-semibold mb-2">Matcha Latte</h4>
+          <p class="text-sm text-gray-700 mb-2">Price: <span class="font-bold">$4.95</span></p>
+          <button @click="showIngredients = !showIngredients" class="text-sm text-yellow-700 underline focus:outline-none mb-2">View Ingredients</button>
+          <ul x-show="showIngredients" class="text-sm text-gray-600 list-disc list-inside mb-4">
+            <li>Matcha Green Tea</li>
+            <li>Steamed Milk</li>
+            <li>Sweetener</li>
+          </ul>
+          <a href="./order?coffee=Matcha%20Latte&price=4.95&img=https%3A%2F%2Fwww.justonecookbook.com%2Fwp-content%2Fuploads%2F2022%2F12%2FMatcha-Latte-4589-II.jpg" class="inline-block bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 text-sm">Order Now</a>
+        </div>
+      </div>
+
+      <!-- PRODUCT CARD: Vanilla Latte -->
+      <div class="bg-white rounded shadow-md overflow-hidden flex flex-col" x-data="{ showIngredients: false }">
+        <img src="https://media.bluediamond.com/uploads/2023/02/22172029/7_Blonde_Vanilla_Latte_FY23_New_Recipes_P_22-blu-0153-2025x1350.jpg" class="h-64 w-full object-cover" alt="Vanilla Latte">
+        <div class="p-6 flex-1 flex flex-col justify-center">
+          <h4 class="text-xl font-semibold mb-2">Vanilla Latte</h4>
+          <p class="text-sm text-gray-700 mb-2">Price: <span class="font-bold">$4.25</span></p>
+          <button @click="showIngredients = !showIngredients" class="text-sm text-yellow-700 underline focus:outline-none mb-2">View Ingredients</button>
+          <ul x-show="showIngredients" class="text-sm text-gray-600 list-disc list-inside mb-4">
+            <li>Espresso</li>
+            <li>Steamed Milk</li>
+            <li>Vanilla Syrup</li>
+          </ul>
+          <a href="./order?coffee=Vanilla%20Latte&price=4.25&img=https%3A%2F%2Fmedia.bluediamond.com%2Fuploads%2F2023%2F02%2F22172029%2F7_Blonde_Vanilla_Latte_FY23_New_Recipes_P_22-blu-0153-2025x1350.jpg" class="inline-block bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 text-sm">Order Now</a>
+        </div>
+      </div>
+
+      <!-- PRODUCT CARD: Classic Cappuccino -->
+      <div class="bg-white rounded shadow-md overflow-hidden flex flex-col" x-data="{ showIngredients: false }">
+        <img src="http://www.magtheweekly.com/assets/uploads/updates/2022-09-27/16494_458262_updates.jpg" class="h-64 w-full object-cover" alt="Classic Cappuccino">
+        <div class="p-6 flex-1 flex flex-col justify-center">
+          <h4 class="text-xl font-semibold mb-2">Classic Cappuccino</h4>
+          <p class="text-sm text-gray-700 mb-2">Price: <span class="font-bold">$4.00</span></p>
+          <button @click="showIngredients = !showIngredients" class="text-sm text-yellow-700 underline focus:outline-none mb-2">View Ingredients</button>
+          <ul x-show="showIngredients" class="text-sm text-gray-600 list-disc list-inside mb-4">
+            <li>Espresso</li>
+            <li>Steamed Milk</li>
+            <li>Milk Foam</li>
+          </ul>
+          <a href="./order?coffee=Classic%20Cappuccino&price=4.00&img=http%3A%2F%2Fwww.magtheweekly.com%2Fassets%2Fuploads%2Fupdates%2F2022-09-27%2F16494_458262_updates.jpg" class="inline-block bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 text-sm">Order Now</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Testimonials Section -->
+<section class="py-16 bg-gradient-to-br from-yellow-100 via-white to-yellow-200 relative overflow-hidden">
+  <!-- Decorative SVGs -->
+  <svg class="absolute left-0 top-0 w-48 h-48 opacity-20 -z-10" viewBox="0 0 200 200" fill="none">
+    <ellipse cx="100" cy="100" rx="100" ry="100" fill="#fde68a"/>
+  </svg>
+  <svg class="absolute right-0 bottom-0 w-56 h-56 opacity-10 -z-10" viewBox="0 0 220 220" fill="none">
+    <ellipse cx="110" cy="110" rx="110" ry="110" fill="#fbbf24"/>
+  </svg>
+  <div class="container mx-auto px-4 relative">
+    <h3 class="text-4xl font-extrabold text-center mb-12 text-yellow-800 drop-shadow">What Our Customers Say</h3>
+    <div class="flex justify-center mb-8">
+      <svg class="w-12 h-12 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 48 48">
+        <path d="M12 36c0-8 8-8 8-16S12 12 12 4" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+        <path d="M36 36c0-8 8-8 8-16S36 12 36 4" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <!-- Testimonial 1 -->
+      <div class="bg-white/90 p-8 rounded-3xl shadow-xl transform hover:-translate-y-2 hover:shadow-2xl transition duration-300 relative">
+        <svg class="absolute -top-6 left-6 w-10 h-10 text-yellow-300 opacity-60" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M7.17 15A4.17 4.17 0 013 10.83V10a7 7 0 017-7v2a5 5 0 00-5 5v.83A2.17 2.17 0 007.17 15z"/>
+        </svg>
+        <p class="italic mb-6 text-lg text-gray-700">"Best coffee in town! The staff is always friendly and the atmosphere is perfect for studying."</p>
+        <div class="flex items-center mt-4">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer" class="w-12 h-12 rounded-full border-2 border-yellow-300 shadow mr-4">
+          <div>
+            <span class="font-semibold text-yellow-800">Emily R.</span>
+            <div class="flex text-yellow-400 mt-1">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><polygon points="10 1.5 12.59 7.36 18.82 7.64 13.91 11.63 15.45 17.5 10 14.13 4.55 17.5 6.09 11.63 1.18 7.64 7.41 7.36 10 1.5"/></svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><polygon points="10 1.5 12.59 7.36 18.82 7.64 13.91 11.63 15.45 17.5 10 14.13 4.55 17.5 6.09 11.63 1.18 7.64 7.41 7.36 10 1.5"/></svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><polygon points="10 1.5 12.59 7.36 18.82 7.64 13.91 11.63 15.45 17.5 10 14.13 4.55 17.5 6.09 11.63 1.18 7.64 7.41 7.36 10 1.5"/></svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><polygon points="10 1.5 12.59 7.36 18.82 7.64 13.91 11.63 15.45 17.5 10 14.13 4.55 17.5 6.09 11.63 1.18 7.64 7.41 7.36 10 1.5"/></svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><polygon points="10 1.5 12.59 7.36 18.82 7.64 13.91 11.63 15.45 17.5 10 14.13 4.55 17.5 6.09 11.63 1.18 7.64 7.41 7.36 10 1.5"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Testimonial 2 -->
+      <div class="bg-white/90 p-8 rounded-3xl shadow-xl transform hover:-translate-y-2 hover:shadow-2xl transition duration-300 relative">
+        <svg class="absolute -top-6 left-6 w-10 h-10 text-yellow-300 opacity-60" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M7.17 15A4.17 4.17 0 013 10.83V10a7 7 0 017-7v2a5 5 0 00-5 5v.83A2.17 2.17 0 007.17 15z"/>
+        </svg>
+        <p class="italic mb-6 text-lg text-gray-700">"I love their seasonal drinks and pastries. Highly recommend the caramel macchiato!"</p>
+        <div class="flex items-center mt-4">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="w-12 h-12 rounded-full border-2 border-yellow-300 shadow mr-4">
+          <div>
+            <span class="font-semibold text-yellow-800">James T.</span>
+            <div class="flex text-yellow-400 mt-1">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><polygon points="10 1.5 12.59 7.36 18.82 7.64 13.91 11.63 15.45 17.5 10 14.13 4.55 17.5 6.09 11.63 1.18 7.64 7.41 7.36 10 1.5"/></svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><polygon points="10 1.5 12.59 7.36 18.82 7.64 13.91 11.63 15.45 17.5 10 14.13 4.55 17.5 6.09 11.63 1.18 7.64 7.41 7.36 10 1.5"/></svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><polygon points="10 1.5 12.59 7.36 18.82 7.64 13.91 11.63 15.45 17.5 10 14.13 4.55 17.5 6.09 11.63 1.18 7.64 7.41 7.36 10 1.5"/></svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><polygon points="10 1.5 12.59 7.36 18.82 7.64 13.91 11.63 15.45 17.5 10 14.13 4.55 17.5 6.09 11.63 1.18 7.64 7.41 7.36 10 1.5"/></svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><polygon points="10 1.5 12.59 7.36 18.82 7.64 13.91 11.63 15.45 17.5 10 14.13 4.55 17.5 6.09 11.63 1.18 7.64 7.41 7.36 10 1.5"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Testimonial 3 -->
+      <div class="bg-white/90 p-8 rounded-3xl shadow-xl transform hover:-translate-y-2 hover:shadow-2xl transition duration-300 relative">
+        <svg class="absolute -top-6 left-6 w-10 h-10 text-yellow-300 opacity-60" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M7.17 15A4.17 4.17 0 013 10.83V10a7 7 0 017-7v2a5 5 0 00-5 5v.83A2.17 2.17 0 007.17 15z"/>
+        </svg>
+        <p class="italic mb-6 text-lg text-gray-700">"A cozy spot to relax or get some work done. The cold brew is my favorite!"</p>
+        <div class="flex items-center mt-4">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Customer" class="w-12 h-12 rounded-full border-2 border-yellow-300 shadow mr-4">
+          <div>
+            <span class="font-semibold text-yellow-800">Samantha L.</span>
+            <div class="flex text-yellow-400 mt-1">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><polygon points="10 1.5 12.59 7.36 18.82 7.64 13.91 11.63 15.45 17.5 10 14.13 4.55 17.5 6.09 11.63 1.18 7.64 7.41 7.36 10 1.5"/></svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><polygon points="10 1.5 12.59 7.36 18.82 7.64 13.91 11.63 15.45 17.5 10 14.13 4.55 17.5 6.09 11.63 1.18 7.64 7.41 7.36 10 1.5"/></svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><polygon points="10 1.5 12.59 7.36 18.82 7.64 13.91 11.63 15.45 17.5 10 14.13 4.55 17.5 6.09 11.63 1.18 7.64 7.41 7.36 10 1.5"/></svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><polygon points="10 1.5 12.59 7.36 18.82 7.64 13.91 11.63 15.45 17.5 10 14.13 4.55 17.5 6.09 11.63 1.18 7.64 7.41 7.36 10 1.5"/></svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><polygon points="10 1.5 12.59 7.36 18.82 7.64 13.91 11.63 15.45 17.5 10 14.13 4.55 17.5 6.09 11.63 1.18 7.64 7.41 7.36 10 1.5"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Carousel Dots (for mobile, visual only) -->
+    <div class="flex justify-center mt-10 md:hidden">
+      <span class="w-3 h-3 bg-yellow-400 rounded-full mx-1 inline-block"></span>
+      <span class="w-3 h-3 bg-yellow-200 rounded-full mx-1 inline-block"></span>
+      <span class="w-3 h-3 bg-yellow-200 rounded-full mx-1 inline-block"></span>
+    </div>
+  </div>
+</section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js" defer></script>
+
+<!-- Contact Section -->
+<section class="py-16 bg-gradient-to-br from-yellow-100 via-yellow-50 to-white" id="contact">
+  <div class="container mx-auto px-4">
+    <h3 class="text-4xl font-extrabold text-center text-yellow-800 mb-10 drop-shadow">Contact Us</h3>
+    <div class="flex flex-col md:flex-row md:space-x-10 items-stretch max-w-4xl mx-auto">
+<!-- Contact Form -->
+<form id="contactForm"
+      class="flex-1 bg-white/80 backdrop-blur p-8 rounded-2xl shadow-xl space-y-6 border border-yellow-100"
+      autocomplete="off">
+  <div>
+    <label class="block mb-2 font-semibold text-yellow-800" for="name">Name</label>
+    <input class="w-full px-4 py-3 border border-yellow-200 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none transition"
+           type="text" id="name" name="name" required>
+  </div>
+  <div>
+    <label class="block mb-2 font-semibold text-yellow-800" for="email">Email</label>
+    <input class="w-full px-4 py-3 border border-yellow-200 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none transition"
+           type="email" id="email" name="email" required>
+  </div>
+  <div>
+    <label class="block mb-2 font-semibold text-yellow-800" for="message">Message</label>
+    <textarea class="w-full px-4 py-3 border border-yellow-200 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none transition resize-none"
+              id="message" name="message" rows="4" required></textarea>
+  </div>
+<button type="submit" id="contactSubmit"
+  class="w-full bg-yellow-600 text-white px-6 py-3 rounded-lg font-bold shadow hover:bg-yellow-700 transition flex items-center justify-center">
+  Send Message
+</button>
+
+</form>
+      <!-- Contact Info -->
+      <div class="flex-1 flex flex-col justify-center mt-10 md:mt-0 bg-yellow-50/80 rounded-2xl shadow-lg p-8 border border-yellow-100">
+        <div class="flex flex-col space-y-6 text-center md:text-left">
+          <div class="flex items-center justify-center md:justify-start space-x-3">
+            <svg class="w-6 h-6 text-yellow-700" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+                 d="M17 20h5v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2h5m6 0v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2"></path></svg>
+            <span class="font-semibold text-gray-700">123 Coffee Lane, Brewtown, USA</span>
+          </div>
+          <div class="flex items-center justify-center md:justify-start space-x-3">
+            <svg class="w-6 h-6 text-yellow-700" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+                 d="M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M16 3v4a1 1 0 001 1h4"></path></svg>
+            <span class="font-semibold text-gray-700">(555) 123-4567</span>
+          </div>
+          <div class="flex items-center justify-center md:justify-start space-x-3">
+            <svg class="w-6 h-6 text-yellow-700" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+                 d="M16 12H8m8 0a4 4 0 11-8 0 4 4 0 018 0zm0 0v1a4 4 0 01-8 0v-1"></path></svg>
+            <span class="font-semibold text-gray-700">hello@beanhaven.com</span>
+          </div>
+        </div>
+        <div class="mt-8 flex justify-center md:justify-start space-x-4">
+          <a href="#" class="text-yellow-700 hover:text-yellow-900 transition" aria-label="Instagram">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17" cy="7" r="1.5"/></svg>
+          </a>
+          <a href="#" class="text-yellow-700 hover:text-yellow-900 transition" aria-label="Facebook">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+                 d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="#" class="text-yellow-700 hover:text-yellow-900 transition" aria-label="Twitter">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+                 d="M23 3a10.9 10.9 0 01-3.14 1.53A4.48 4.48 0 0022.4.36a9.09 9.09 0 01-2.88 1.1A4.48 4.48 0 0016.11 0c-2.5 0-4.52 2.02-4.52 4.52 0 .35.04.7.11 1.03A12.94 12.94 0 013 1.13a4.52 4.52 0 001.4 6.03A4.48 4.48 0 012 6.13v.06c0 2.18 1.55 4 3.8 4.42a4.52 4.52 0 01-2.04.08c.57 1.78 2.23 3.08 4.2 3.12A9.05 9.05 0 012 19.54a12.8 12.8 0 006.95 2.04c8.34 0 12.9-6.91 12.9-12.9 0-.2 0-.39-.01-.58A9.22 9.22 0 0023 3z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gradient-to-r from-yellow-800 via-yellow-700 to-yellow-900 text-white py-10 mt-12 shadow-inner">
+  <!-- Map -->
+<div class="w-full mt-10">
+  <iframe
+    title="Bean Haven Location"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.408116258623!2d-122.41941628468135!3d37.77492977975965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858159d111aa7d%3A0x94c24440d82d1d15!2s123%20Coffee%20Lane%2C%20San%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1718632709112!5m2!1sen!2sus"
+    width="100%" height="300" style="border:0; border-radius: 0.75rem; box-shadow: 0 0 10px rgba(0,0,0,0.1);"
+    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+  <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    
+    <!-- Logo & Copyright -->
+    <div class="flex items-center space-x-3">
+      <svg class="w-10 h-10 text-yellow-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <ellipse cx="12" cy="12" rx="9" ry="7" stroke="currentColor" stroke-width="2" fill="#fbbf24"/>
+        <path d="M8 15c0-2 8-2 8 0" stroke="#fff" stroke-width="1.5" fill="none"/>
+        <path d="M12 7v2" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="font-bold text-xl tracking-wide">Bean Haven</span>
+    </div>
+    <!-- Footer Nav -->
+    <ul class="flex space-x-6 text-yellow-100 font-medium">
+      <li><a href="#menu" class="hover:text-yellow-300 transition">Menu</a></li>
+      <li><a href="#about" class="hover:text-yellow-300 transition">About</a></li>
+      <li><a href="#contact" class="hover:text-yellow-300 transition">Contact</a></li>
+    </ul>
+    <!-- Socials -->
+    <div class="flex space-x-4">
+      <a href="#" aria-label="Instagram" class="hover:text-yellow-300 transition">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17" cy="7" r="1.5"/></svg>
+      </a>
+      <a href="#" aria-label="Facebook" class="hover:text-yellow-300 transition">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+             d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <a href="#" aria-label="Twitter" class="hover:text-yellow-300 transition">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+             d="M23 3a10.9 10.9 0 01-3.14 1.53A4.48 4.48 0 0022.4.36a9.09 9.09 0 01-2.88 1.1A4.48 4.48 0 0016.11 0c-2.5 0-4.52 2.02-4.52 4.52 0 .35.04.7.11 1.03A12.94 12.94 0 013 1.13a4.52 4.52 0 001.4 6.03A4.48 4.48 0 012 6.13v.06c0 2.18 1.55 4 3.8 4.42a4.52 4.52 0 01-2.04.08c.57 1.78 2.23 3.08 4.2 3.12A9.05 9.05 0 012 19.54a12.8 12.8 0 006.95 2.04c8.34 0 12.9-6.91 12.9-12.9 0-.2 0-.39-.01-.58A9.22 9.22 0 0023 3z"/></svg>
+      </a>
+    </div>
+    
+  </div>
+  <div class="mt-8 text-center text-yellow-200 text-sm">
+    &copy; 2025 Bean Haven Coffee. All rights reserved.
+  </div>
+</footer>
+<script>
+document.getElementById("contactForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const submitBtn = document.getElementById("contactSubmit");
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const message = document.getElementById("message").value;
+
+  // Disable button and show spinner
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = `
+    <svg class="animate-spin h-5 w-5 text-white mr-2" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor"
+        d="M4 12a8 8 0 018-8v8z"></path>
+    </svg>
+    Sending...
+  `;
+
+  try {
+    const res = await fetch("http://localhost:5000/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, message })
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      submitBtn.innerHTML = `Message Sent!`;
+      e.target.reset();
+    } else {
+      submitBtn.innerHTML = `⚠️ Try Again`;
+    }
+  } catch (err) {
+    console.error("Error:", err);
+    submitBtn.innerHTML = `⚠️ Error Sending`;
+  }
+
+  // Re-enable button after 4 seconds
+  setTimeout(() => {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = `Send Message`;
+  }, 4000);
+});
+</script>
+
+</body>
+</html>
