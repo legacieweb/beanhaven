@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Orders - Bean Haven</title>
+  <title>My Orders - Canella</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-yellow-50 text-gray-800 font-sans">
@@ -26,7 +26,7 @@
 
 <!-- Footer -->
 <footer class="text-center text-gray-500 text-sm py-6 mt-10 border-t">
-  &copy; 2025 Bean Haven. Brewed for you ☕.
+  &copy; 2025 Canella. Brewed for you.
 </footer>
 
 <script>
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const res = await fetch("https://beanhaven.onrender.com/api/orders");
+    const res = await fetch("http://localhost:5000/api/orders");
     const data = await res.json();
 
     if (!data.success || !Array.isArray(data.orders)) {

@@ -17,7 +17,7 @@
         <path d="M8 15c0-2 8-2 8 0" stroke="#fff" stroke-width="1.5" fill="none"/>
         <path d="M12 7v2" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
-      <h1 class="text-2xl font-bold text-yellow-600">Bean Haven</h1>
+      <h1 class="text-2xl font-bold text-yellow-600">Canella</h1>
     </div>
 
     <!-- Hamburger Button (Mobile) -->
@@ -199,7 +199,7 @@
     <!-- About Content -->
     <div class="md:w-1/2 md:pl-8 text-yellow-600 md:text-gray-800">
       <h3 class="text-4xl font-extrabold mb-4 drop-shadow">
-        About <span class="text-yellow-600 md:text-yellow-700">Bean Haven</span>
+        About <span class="text-yellow-600 md:text-yellow-700">Canella</span>
       </h3>
       <p class="mb-6 text-lg leading-relaxed">
         <span class="inline-block bg-yellow-100 px-2 py-1 rounded-lg font-semibold">Canella</span>
@@ -320,7 +320,7 @@
 
       <!-- PRODUCT CARD: Cold Brew -->
       <div class="bg-white rounded shadow-md overflow-hidden flex flex-col" x-data="{ showIngredients: false }">
-        <img src="https://www.simplyrecipes.com/thmb/iublQcLwNKqAtJywSF5kvsMPpn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Simply-Recipes-Cold-Brew-Coffee-LEAD-20-5cb9bb5dd8f44376909a83482e97eb44.jpg" class="h-64 w-full object-cover" alt="Cold Brew">
+        <img src="https://lorcoffee.com/cdn/shop/files/Lor_L_Coffee_LeTigre_Provocateur_Iced_FathersDay_90116-_2_8e7234a2-61a8-4a99-aa25-595623fedd1e.jpg?format=webp&v=1718208393&width=750" class="h-64 w-full object-cover" alt="Cold Brew">
         <div class="p-6 flex-1 flex flex-col justify-center">
           <h4 class="text-xl font-semibold mb-2">Cold Brew</h4>
           <p class="text-sm text-gray-700 mb-2">Price: <span class="font-bold">$3.75</span></p>
@@ -556,7 +556,7 @@
   <!-- Map -->
 <div class="w-full mt-10">
   <iframe
-    title="Bean Haven Location"
+    title="Canella Location"
     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.408116258623!2d-122.41941628468135!3d37.77492977975965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858159d111aa7d%3A0x94c24440d82d1d15!2s123%20Coffee%20Lane%2C%20San%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1718632709112!5m2!1sen!2sus"
     width="100%" height="300" style="border:0; border-radius: 0.75rem; box-shadow: 0 0 10px rgba(0,0,0,0.1);"
     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
@@ -572,7 +572,7 @@
         <path d="M8 15c0-2 8-2 8 0" stroke="#fff" stroke-width="1.5" fill="none"/>
         <path d="M12 7v2" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
-      <span class="font-bold text-xl tracking-wide">Bean Haven</span>
+      <span class="font-bold text-xl tracking-wide">Canella</span>
     </div>
     <!-- Footer Nav -->
     <ul class="flex space-x-6 text-yellow-100 font-medium">
@@ -624,7 +624,7 @@ document.getElementById("contactForm").addEventListener("submit", async (e) => {
   `;
 
   try {
-    const res = await fetch("https://beanhaven.onrender.com/api/contact", {
+    const res = await fetch("http://localhost:5000/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, message })

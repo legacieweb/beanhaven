@@ -26,6 +26,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 const OrderSchema = new mongoose.Schema({
+  orderNumber: { type: String, unique: true, default: () => `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}` },
   name: String,
   email: String,
   phone: String,
