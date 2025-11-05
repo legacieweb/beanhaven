@@ -320,7 +320,7 @@
 
       <!-- PRODUCT CARD: Cold Brew -->
       <div class="bg-white rounded shadow-md overflow-hidden flex flex-col" x-data="{ showIngredients: false }">
-        <img src="https://lorcoffee.com/cdn/shop/files/Lor_L_Coffee_LeTigre_Provocateur_Iced_FathersDay_90116-_2_8e7234a2-61a8-4a99-aa25-595623fedd1e.jpg?format=webp&v=1718208393&width=750" class="h-64 w-full object-cover" alt="Cold Brew">
+        <img src="https://www.thedinnerbite.com/wp-content/uploads/2021/07/cold-brew-img-4.jpg" class="h-64 w-full object-cover" alt="Cold Brew">
         <div class="p-6 flex-1 flex flex-col justify-center">
           <h4 class="text-xl font-semibold mb-2">Cold Brew</h4>
           <p class="text-sm text-gray-700 mb-2">Price: <span class="font-bold">$3.75</span></p>
@@ -624,7 +624,7 @@ document.getElementById("contactForm").addEventListener("submit", async (e) => {
   `;
 
   try {
-    const res = await fetch("http://localhost:5000/api/contact", {
+    const res = await fetch("https://beanhaven.onrender.com/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, message })

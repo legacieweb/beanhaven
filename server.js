@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 const OrderSchema = new mongoose.Schema({
-  orderNumber: { type: String, unique: true, default: () => `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}` },
+  orderId: { type: String, unique: true, default: () => `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}` },
   name: String,
   email: String,
   phone: String,
@@ -111,14 +111,23 @@ app.post("/api/login", async (req, res) => {
 
 // === Submit Order ===
 app.post("/api/order", async (req, res) => {
-  const { name, email, phone, address, coffee, quantity, price } = req.body;
+  const { name, email, phone, address, coffee, quantity, price, instructions } = req.body;
 
   if (!name || !email || !phone || !address || !coffee || !quantity || !price) {
     return res.status(400).json({ success: false, message: "Missing required fields" });
   }
 
   try {
-    const order = await Order.create(req.body);
+    const order = await Order.create({
+      name,
+      email,
+      phone,
+      address,
+      coffee,
+      quantity,
+      price,
+      instructions: instructions || '',
+    });
     await sendOrderEmails(order);
     res.json({ success: true, order });
   } catch (err) {
